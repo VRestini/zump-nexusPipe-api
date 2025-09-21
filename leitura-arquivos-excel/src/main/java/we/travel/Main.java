@@ -17,14 +17,14 @@ public class Main {
 
         // Extraindo os livros do arquivo
         LeitorExcel leitorExcel = new LeitorExcel();
-        List<Livro> livrosExtraidos = leitorExcel.extrarLivros(nomeArquivo, arquivo);
+        List<Destino> destinoList = leitorExcel.extrarDestinos(nomeArquivo, arquivo);
 
         // Fechando o arquivo após a extração
         arquivo.close();
 
         System.out.println("Livros extraídos:");
-        for (Livro livro : livrosExtraidos) {
-            System.out.println(livro);
+        for (Destino destino : destinoList) {
+            System.out.println(destino);
         }
     }
 }

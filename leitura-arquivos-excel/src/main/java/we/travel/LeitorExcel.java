@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class LeitorExcel {
 
-    public List<Livro> extrarLivros(String nomeArquivo, InputStream arquivo) {
+    public List<Destino> extrarDestinos(String nomeArquivo, InputStream arquivo) {
         try {
             System.out.println("\nIniciando leitura do arquivo %s\n".formatted(nomeArquivo));
 
@@ -29,7 +29,7 @@ public class LeitorExcel {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            List<Livro> livrosExtraidos = new ArrayList<>();
+            List<Destino> destinosExtraidos = new ArrayList<>();
 
             // Iterando sobre as linhas da planilha
             for (Row row : sheet) {
@@ -37,7 +37,7 @@ public class LeitorExcel {
                 if (row.getRowNum() == 0) {
                     System.out.println("\nLendo cabeçalho");
 
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 324; i++) {
                         String coluna = row.getCell(i).getStringCellValue();
                         System.out.println("Coluna " + i + ": " + coluna);
                     }
@@ -49,13 +49,17 @@ public class LeitorExcel {
                 // Extraindo valor das células e criando objeto Livro
                 System.out.println("Lendo linha " + row.getRowNum());
 
-                Livro livro = new Livro();
-                livro.setId((int) row.getCell(0).getNumericCellValue());
-                livro.setTitulo(row.getCell(1).getStringCellValue());
-                livro.setAutor(row.getCell(2).getStringCellValue());
-                livro.setDataLancamento(converterDate(row.getCell(3).getDateCellValue()));
+                Destino destino = new Destino();
+                destino.setUf( row.getCell(0).getStringCellValue());
+                destino.setMunicipio(row.getCell(1).getStringCellValue());
+                destino.setPossuiGuia(row.getCell(2).getBooleanCellValue());
+                destino.setQtdGuia((int) row.getCell(3).getNumericCellValue());
+                destino.setPossuiAeroporto(row.getCell(4).getBooleanCellValue());
+                destino.setAguasTermais(row.getCell(5).getBooleanCellValue());
+                destino.setUnidadesConservacao(row.getCell(6).getBooleanCellValue());
 
-                livrosExtraidos.add(livro);
+
+                destinosExtraidos.add(destino);
             }
 
             // Fechando o workbook após a leitura
@@ -63,7 +67,7 @@ public class LeitorExcel {
 
             System.out.println("\nLeitura do arquivo finalizada\n");
 
-            return livrosExtraidos;
+            return destinosExtraidos;
         } catch (IOException e) {
             // Caso ocorra algum erro durante a leitura do arquivo uma exceção será lançada
             throw new RuntimeException(e);
