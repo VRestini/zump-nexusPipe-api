@@ -1,4 +1,4 @@
-package school.sptech;
+package we.travel;
 
 import java.time.LocalDate;
 
