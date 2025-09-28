@@ -44,7 +44,7 @@ public class Destino {
                     Possui guia: %s  |  quantidade: %d
                     Modais de acesso: %s
                     Possui unidades de conservacao: %s  |  Possui aguas termais: %s
-                    Presencas hidricas: $s
+                    Presencas hidricas: %s
                       
                 }
                 """.formatted(uf, municipio, possuiAeroporto,possuiLocadora,possuiGuia,qtdGuia, modaisAcessos,unidadesConservacao,aguasTermais,presencaHidricas);

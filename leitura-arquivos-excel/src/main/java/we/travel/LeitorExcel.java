@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -62,6 +63,8 @@ public class LeitorExcel {
                 else
                     destino.setQtdGuia(0);
                 destino.setPossuiAeroporto(possuiSimNao(row,4));
+                destino.setModaisAcessos(acesso(row,5));
+                destino.setPresencaHidricas(hidricos(row,6));
                 destino.setAguasTermais(possuiSimNao(row, 7));
                 destino.setUnidadesConservacao(possuiSimNao(row,8));
                 destino.setPossuiLocadora(possuiSimNao(row,10));
@@ -90,6 +93,37 @@ public class LeitorExcel {
             return true;
         else
             return false;
+    }
+    private List<ModaisAcesso> acesso(Row row, int i){
+        String valor = row.getCell(i).getStringCellValue();
+        List<ModaisAcesso> lista = new ArrayList<>();
+        if (valor.contains("Aeroporto"))
+            lista.add(ModaisAcesso.Aeroporto);
+        if (valor.contains("Rodovia"))
+            lista.add(ModaisAcesso.Rodovia);
+        if (valor.contains("Ferrovia"))
+            lista.add(ModaisAcesso.Ferrovia);
+        if (valor.contains("Hidrovia"))
+            lista.add(ModaisAcesso.Hidrovia);
+        if (valor.contains("Outros"))
+            lista.add(ModaisAcesso.Outros);
+        return lista;
+    }private List<PresencaHidrica> hidricos(Row row, int i){
+        Cell cell = row.getCell(i);
+        if (cell == null)
+            return null;
+        String valor = row.getCell(i).getStringCellValue();
+        List<PresencaHidrica> lista = new ArrayList<>();
+
+        if (valor.contains("Rios"))
+            lista.add(PresencaHidrica.Rios);
+        if (valor.contains("Praias"))
+            lista.add(PresencaHidrica.Praias);
+        if (valor.contains("Lagos"))
+            lista.add(PresencaHidrica.Lagos);
+        if (valor.contains("Lagoas"))
+            lista.add(PresencaHidrica.Lagoas);
+        return lista;
     }
 
 }
