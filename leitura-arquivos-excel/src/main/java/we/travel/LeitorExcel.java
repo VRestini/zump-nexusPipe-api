@@ -30,7 +30,11 @@ public class LeitorExcel {
             Sheet sheet = workbook.getSheetAt(0);
 
             List<Destino> destinosExtraidos = new ArrayList<>();
-
+            String aeroporto;
+            String possuiGuia;
+            String possuiAguasTermais;
+            String possuiConservacao;
+            String possuiLocadora;
             // Iterando sobre as linhas da planilha
             for (Row row : sheet) {
 
@@ -52,13 +56,15 @@ public class LeitorExcel {
                 Destino destino = new Destino();
                 destino.setUf( row.getCell(0).getStringCellValue());
                 destino.setMunicipio(row.getCell(1).getStringCellValue());
-                //destino.setPossuiGuia(row.getCell(2).getBooleanCellValue());
-                //destino.setQtdGuia((int) row.getCell(3).getNumericCellValue());
-                //destino.setPossuiAeroporto(row.getCell(4).getBooleanCellValue());
-                //destino.setAguasTermais(row.getCell(5).getBooleanCellValue());
-                //destino.setUnidadesConservacao(row.getCell(6).getBooleanCellValue());
-
-
+                destino.setPossuiGuia(possuiSimNao(row, 2));
+                if (destino.getPossuiGuia())
+                    destino.setQtdGuia(Integer.parseInt(row.getCell(3).getStringCellValue()));
+                else
+                    destino.setQtdGuia(0);
+                destino.setPossuiAeroporto(possuiSimNao(row,4));
+                destino.setAguasTermais(possuiSimNao(row, 7));
+                destino.setUnidadesConservacao(possuiSimNao(row,8));
+                destino.setPossuiLocadora(possuiSimNao(row,10));
                 destinosExtraidos.add(destino);
             }
 
@@ -77,4 +83,13 @@ public class LeitorExcel {
     private LocalDate converterDate(Date data) {
         return data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
+    private Boolean possuiSimNao(Row row, int i){
+        String possuiGuia;
+        possuiGuia = row.getCell(i).getStringCellValue();
+        if(possuiGuia.equalsIgnoreCase("sim"))
+            return true;
+        else
+            return false;
+    }
+
 }
