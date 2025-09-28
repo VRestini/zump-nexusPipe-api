@@ -37,7 +37,7 @@ public class LeitorExcel {
                 if (row.getRowNum() == 0) {
                     System.out.println("\nLendo cabeçalho");
 
-                    for (int i = 0; i < 324; i++) {
+                    for (int i = 0; i < 13; i++) {
                         String coluna = row.getCell(i).getStringCellValue();
                         System.out.println("Coluna " + i + ": " + coluna);
                     }
@@ -52,11 +52,11 @@ public class LeitorExcel {
                 Destino destino = new Destino();
                 destino.setUf( row.getCell(0).getStringCellValue());
                 destino.setMunicipio(row.getCell(1).getStringCellValue());
-                destino.setPossuiGuia(row.getCell(2).getBooleanCellValue());
-                destino.setQtdGuia((int) row.getCell(3).getNumericCellValue());
-                destino.setPossuiAeroporto(row.getCell(4).getBooleanCellValue());
-                destino.setAguasTermais(row.getCell(5).getBooleanCellValue());
-                destino.setUnidadesConservacao(row.getCell(6).getBooleanCellValue());
+                //destino.setPossuiGuia(row.getCell(2).getBooleanCellValue());
+                //destino.setQtdGuia((int) row.getCell(3).getNumericCellValue());
+                //destino.setPossuiAeroporto(row.getCell(4).getBooleanCellValue());
+                //destino.setAguasTermais(row.getCell(5).getBooleanCellValue());
+                //destino.setUnidadesConservacao(row.getCell(6).getBooleanCellValue());
 
 
                 destinosExtraidos.add(destino);

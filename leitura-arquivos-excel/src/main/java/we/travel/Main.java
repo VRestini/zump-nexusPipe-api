@@ -9,7 +9,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        String nomeArquivo = "melhores-livros.xlsx";
+        String nomeArquivo = "relatorio-turismo.xlsx";
 
         // Carregando o arquivo excel
         Path caminho = Path.of(nomeArquivo);
@@ -22,7 +22,7 @@ public class Main {
         // Fechando o arquivo após a extração
         arquivo.close();
 
-        System.out.println("Livros extraídos:");
+        System.out.println("Destinos extraídos:");
         for (Destino destino : destinoList) {
             System.out.println(destino);
         }
