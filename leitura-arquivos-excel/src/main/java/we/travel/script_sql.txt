@@ -1,0 +1,15 @@
+CREATE DATABASE nexus;
+USE nexus;
+CREATE TABLE DESTINO(
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    uf CHAR(2),
+    municipio VARCHAR(60),
+    possui_aeroporto BOOLEAN,
+    possui_guia BOOLEAN,
+    qtd_guia INT,
+    modais_acesso VARCHAR(100),
+    possui_conservacao BOOLEAN,
+    possui_termais BOOLEAN,
+
+    presenca_hidrica VARCHAR(100)
+    );

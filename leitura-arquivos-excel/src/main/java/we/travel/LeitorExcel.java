@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class LeitorExcel {
 
@@ -29,13 +30,11 @@ public class LeitorExcel {
             }
 
             Sheet sheet = workbook.getSheetAt(0);
-
+            ConexaoBanco conexaoBanco = new ConexaoBanco();
             List<Destino> destinosExtraidos = new ArrayList<>();
-            String aeroporto;
-            String possuiGuia;
-            String possuiAguasTermais;
-            String possuiConservacao;
-            String possuiLocadora;
+            JdbcTemplate template = conexaoBanco.getJdbcTemplate();
+
+            InsercaoBanco insercaoBanco = new InsercaoBanco(template);
             // Iterando sobre as linhas da planilha
             for (Row row : sheet) {
 
@@ -68,7 +67,9 @@ public class LeitorExcel {
                 destino.setAguasTermais(possuiSimNao(row, 7));
                 destino.setUnidadesConservacao(possuiSimNao(row,8));
                 destino.setPossuiLocadora(possuiSimNao(row,10));
+
                 destinosExtraidos.add(destino);
+                insercaoBanco.inserirQuery(destino.getUf(),destino.getMunicipio(),destino.getPossuiAeroporto(),destino.getPossuiGuia(),destino.getQtdGuia(),destino.getModaisAcessos().toString(),destino.getUnidadesConservacao(), destino.getAguasTermais(), destino.getPresencaHidricas().toString());
             }
 
             // Fechando o workbook após a leitura
