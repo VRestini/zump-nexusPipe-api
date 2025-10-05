@@ -41,32 +41,29 @@ public class LeitorExcel {
                 if (row.getRowNum() == 0) {
                     System.out.println("\nLendo cabeçalho");
 
-                    for (int i = 0; i < 13; i++) {
-                        String coluna = row.getCell(i).getStringCellValue();
-                        System.out.println("Coluna " + i + ": " + coluna);
-                    }
+
 
                     System.out.println("--------------------");
                     continue;
                 }
-
+                if (row.getRowNum() < 3) continue;
                 // Extraindo valor das células e criando objeto Livro
                 System.out.println("Lendo linha " + row.getRowNum());
 
                 Destino destino = new Destino();
                 destino.setUf( row.getCell(0).getStringCellValue());
                 destino.setMunicipio(row.getCell(1).getStringCellValue());
-                destino.setPossuiGuia(possuiSimNao(row, 2));
+                destino.setPossuiGuia(possuiSimNao(row, 40));
                 if (destino.getPossuiGuia())
-                    destino.setQtdGuia(Integer.parseInt(row.getCell(3).getStringCellValue()));
+                    destino.setQtdGuia(Integer.parseInt(row.getCell(41).getStringCellValue()));
                 else
                     destino.setQtdGuia(0);
-                destino.setPossuiAeroporto(possuiSimNao(row,4));
-                destino.setModaisAcessos(acesso(row,5));
-                destino.setPresencaHidricas(hidricos(row,6));
-                destino.setAguasTermais(possuiSimNao(row, 7));
-                destino.setUnidadesConservacao(possuiSimNao(row,8));
-                destino.setPossuiLocadora(possuiSimNao(row,10));
+                destino.setPossuiAeroporto(possuiSimNao(row,49));
+                destino.setModaisAcessos(acesso(row,52));
+                destino.setPresencaHidricas(hidricos(row,95));
+                destino.setAguasTermais(possuiSimNao(row, 96));
+                destino.setUnidadesConservacao(possuiSimNao(row,80));
+                destino.setPossuiLocadora(possuiSimNao(row,42));
 
                 destinosExtraidos.add(destino);
                 insercaoBanco.inserirQuery(destino.getUf(),destino.getMunicipio(),destino.getPossuiAeroporto(),destino.getPossuiGuia(),destino.getQtdGuia(),destino.getModaisAcessos().toString(),destino.getUnidadesConservacao(), destino.getAguasTermais(), destino.getPresencaHidricas().toString());
