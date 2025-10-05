@@ -111,8 +111,10 @@ public class LeitorExcel {
         return lista;
     }private List<PresencaHidrica> hidricos(Row row, int i){
         Cell cell = row.getCell(i);
-        if (cell == null)
-            return null;
+        if (cell == null){
+            List<PresencaHidrica> lista = new ArrayList<>();;
+            return lista;
+        }
         String valor = row.getCell(i).getStringCellValue();
         List<PresencaHidrica> lista = new ArrayList<>();
 
