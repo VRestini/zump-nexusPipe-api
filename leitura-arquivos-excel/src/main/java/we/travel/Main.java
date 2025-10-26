@@ -1,5 +1,9 @@
 package we.travel;
 
+import we.travel.etl.Destino;
+import we.travel.etl.LeitorExcel;
+import we.travel.log.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -11,6 +15,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         List<String> arquivos = new ArrayList<>();
+        Log log = new Log();
         arquivos.add("acre.xlsx" );
         arquivos.add("alagoas.xlsx");
         arquivos.add("amapa.xlsx" );
@@ -38,22 +43,29 @@ public class Main {
         arquivos.add("sao_paulo.xlsx" );
         arquivos.add("sergipe.xlsx" );
         arquivos.add("tocantis.xlsx" );
-
+        log.dispararLog("PROCESSO_INICIADO", "", "QUANTIDADE DE ARQUIVOS: " + arquivos.size());
 
         // Carregando o arquivo excel
         for (String arquivo : arquivos) {
-            String nomeArquivo = arquivo;
-            Path caminho = Path.of(nomeArquivo);
-            InputStream arquivoLido = Files.newInputStream(caminho);
-            LeitorExcel leitorExcel = new LeitorExcel();
-            List<Destino> destinoList = leitorExcel.extrarDestinos(nomeArquivo, arquivoLido);
-            arquivoLido.close();
-            System.out.println("Destinos extraídos:");
-            for (Destino destino : destinoList) {
-                System.out.println(destino);
+            try{
+                String nomeArquivo = arquivo;
+                Path caminho = Path.of(nomeArquivo);
+                InputStream arquivoLido = Files.newInputStream(caminho);
+                LeitorExcel leitorExcel = new LeitorExcel();
+                List<Destino> destinoList = leitorExcel.extrarDestinos(nomeArquivo, arquivoLido);
+                arquivoLido.close();
+                //System.out.println("Destinos extraídos:");
+                /*for (Destino destino : destinoList) {
+                    System.out.println(destino);
+                }*/
+            } catch (Exception e) {
+                log.dispararLog("ERRO_ARQUIVO", arquivo, "Falha no processamento: " + e.getMessage());
+                throw new RuntimeException(e);
             }
-        }
 
+        }
+        log.dispararLog("PROCESSAMENTO_CONCLUIDO", "",
+                "Todos os arquivos foram processados");
 
     }
 }

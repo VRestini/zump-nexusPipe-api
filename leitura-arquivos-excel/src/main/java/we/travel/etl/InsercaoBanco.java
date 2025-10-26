@@ -1,4 +1,4 @@
-package we.travel;
+package we.travel.etl;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 

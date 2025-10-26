@@ -1,4 +1,4 @@
-package we.travel;
+package we.travel.etl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,12 +14,20 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.jdbc.core.JdbcTemplate;
+import we.travel.ModaisAcesso;
+import we.travel.PresencaHidrica;
+import we.travel.log.Log;
 
 public class LeitorExcel {
+    private Log log;
+
+    public LeitorExcel() {
+        this.log = new Log();
+    }
 
     public List<Destino> extrarDestinos(String nomeArquivo, InputStream arquivo) {
         try {
-            System.out.println("\nIniciando leitura do arquivo %s\n".formatted(nomeArquivo));
+            //System.out.println("\nIniciando leitura do arquivo %s\n".formatted(nomeArquivo));
 
             // Criando um objeto Workbook a partir do arquivo recebido
             Workbook workbook;
@@ -39,16 +47,16 @@ public class LeitorExcel {
             for (Row row : sheet) {
 
                 if (row.getRowNum() == 0) {
-                    System.out.println("\nLendo cabeçalho");
+                    //System.out.println("\nLendo cabeçalho");
 
 
 
-                    System.out.println("--------------------");
+                    //System.out.println("--------------------");
                     continue;
                 }
                 if (row.getRowNum() < 3) continue;
                 // Extraindo valor das células e criando objeto Livro
-                System.out.println("Lendo linha " + row.getRowNum());
+                //System.out.println("Lendo linha " + row.getRowNum());
 
                 Destino destino = new Destino();
                 destino.setUf( row.getCell(0).getStringCellValue());
@@ -71,12 +79,13 @@ public class LeitorExcel {
 
             // Fechando o workbook após a leitura
             workbook.close();
-
-            System.out.println("\nLeitura do arquivo finalizada\n");
+            log.dispararLog("LEITURA_CONCLUIDA", nomeArquivo,   "destinos processados: serao mostrados depois");
+            //System.out.println("\nLeitura do arquivo finalizada\n");
 
             return destinosExtraidos;
         } catch (IOException e) {
             // Caso ocorra algum erro durante a leitura do arquivo uma exceção será lançada
+            log.dispararLog("ERRO_LEITURA", nomeArquivo, "Erro: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

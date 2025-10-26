@@ -1,7 +1,9 @@
-package we.travel;
+package we.travel.etl;
 
 import lombok.Getter;
 import lombok.Setter;
+import we.travel.ModaisAcesso;
+import we.travel.PresencaHidrica;
 
 import java.util.List;
 @Getter @Setter
@@ -35,7 +37,7 @@ public class Destino {
         this.presencaHidricas = presencaHidricas;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return """
                 {
@@ -48,5 +50,5 @@ public class Destino {
                       
                 }
                 """.formatted(uf, municipio, possuiAeroporto,possuiLocadora,possuiGuia,qtdGuia, modaisAcessos,unidadesConservacao,aguasTermais,presencaHidricas);
-    }
+    }*/
 }
