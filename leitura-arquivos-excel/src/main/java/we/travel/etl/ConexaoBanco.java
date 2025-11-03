@@ -8,9 +8,10 @@ public class ConexaoBanco {
 
     public ConexaoBanco() {
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl("jdbc:mysql://localhost:3306/nexus?useSSL=false&serverTimezone=UTC");
-        basicDataSource.setUsername("nexus");
-        basicDataSource.setPassword("senha_nexus");
+
+        basicDataSource.setUrl("jdbc:mysql://54.221.2.253:3306/zump?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+        basicDataSource.setUsername("root");
+        basicDataSource.setPassword("urubu100");
 
         // Define o driver MySQL
         basicDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
