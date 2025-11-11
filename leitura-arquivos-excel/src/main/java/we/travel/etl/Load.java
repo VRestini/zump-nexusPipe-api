@@ -19,11 +19,9 @@ public class Load {
         try (InputStream input = getClass().getResourceAsStream("/application.properties")) {
             Properties props = new Properties();
             props.load(input);
-
             urlBanco = props.getProperty("db.url");
             usuario = props.getProperty("db.username");
             senha = props.getProperty("db.password");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,15 +32,14 @@ public class Load {
             conexao.setAutoCommit(false);
             for (int i = 0; i < dados.size(); i++) {
                 insercao.setString(1, dados.get(i).getUf());
-                insercao.setString(1, dados.get(i).getMunicipio());
-                insercao.setBoolean(1, dados.get(i).getPossuiAeroporto());
-                insercao.setBoolean(1, dados.get(i).getPossuiGuia());
-                insercao.setInt(1, dados.get(i).getQtdGuia());
-                insercao.setString(1, dados.get(i).getModaisAcessos().toString());
-                insercao.setBoolean(1, dados.get(i).getUnidadesConservacao());
-                insercao.setBoolean(1, dados.get(i).getAguasTermais());
-                insercao.setString(1, dados.get(i).getPresencaHidricas().toString());
-
+                insercao.setString(2, dados.get(i).getMunicipio());
+                insercao.setBoolean(3, dados.get(i).getPossuiAeroporto());
+                insercao.setBoolean(4, dados.get(i).getPossuiGuia());
+                insercao.setInt(5, dados.get(i).getQtdGuia());
+                insercao.setString(6, dados.get(i).getModaisAcessos().toString());
+                insercao.setBoolean(7, dados.get(i).getUnidadesConservacao());
+                insercao.setBoolean(8, dados.get(i).getAguasTermais());
+                insercao.setString(9, dados.get(i).getPresencaHidricas().toString());
                 insercao.addBatch();
                 if ((i + 1) % tamanhoLote == 0) {
                     insercao.executeBatch();
