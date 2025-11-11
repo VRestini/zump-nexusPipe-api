@@ -1,5 +1,6 @@
 package we.travel;
 
+import we.travel.etl.Batch;
 import we.travel.etl.Destino;
 import we.travel.etl.LeitorExcel;
 import we.travel.log.Log;
@@ -53,6 +54,8 @@ public class Main {
                 InputStream arquivoLido = Files.newInputStream(caminho);
                 LeitorExcel leitorExcel = new LeitorExcel();
                 List<Destino> destinoList = leitorExcel.extrarDestinos(nomeArquivo, arquivoLido);
+                Batch batch = new Batch(destinoList);
+                batch.executar();
                 arquivoLido.close();
                 //System.out.println("Destinos extraídos:");
                 /*for (Destino destino : destinoList) {

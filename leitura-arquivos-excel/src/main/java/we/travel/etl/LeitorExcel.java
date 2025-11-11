@@ -41,23 +41,16 @@ public class LeitorExcel {
             ConexaoBanco conexaoBanco = new ConexaoBanco();
             List<Destino> destinosExtraidos = new ArrayList<>();
             JdbcTemplate template = conexaoBanco.getJdbcTemplate();
-
             InsercaoBanco insercaoBanco = new InsercaoBanco(template);
             // Iterando sobre as linhas da planilha
             for (Row row : sheet) {
 
                 if (row.getRowNum() == 0) {
-                    //System.out.println("\nLendo cabeçalho");
-
-
-
-                    //System.out.println("--------------------");
                     continue;
                 }
                 if (row.getRowNum() < 3) continue;
                 // Extraindo valor das células e criando objeto Livro
                 //System.out.println("Lendo linha " + row.getRowNum());
-
                 Destino destino = new Destino();
                 destino.setUf( row.getCell(0).getStringCellValue());
                 destino.setMunicipio(row.getCell(1).getStringCellValue());
@@ -74,7 +67,7 @@ public class LeitorExcel {
                 destino.setPossuiLocadora(possuiSimNao(row,42));
 
                 destinosExtraidos.add(destino);
-                insercaoBanco.inserirQuery(destino.getUf(),destino.getMunicipio(),destino.getPossuiAeroporto(),destino.getPossuiGuia(),destino.getQtdGuia(),destino.getModaisAcessos().toString(),destino.getUnidadesConservacao(), destino.getAguasTermais(), destino.getPresencaHidricas().toString());
+                //insercaoBanco.inserirQuery(destino.getUf(),destino.getMunicipio(),destino.getPossuiAeroporto(),destino.getPossuiGuia(),destino.getQtdGuia(),destino.getModaisAcessos().toString(),destino.getUnidadesConservacao(), destino.getAguasTermais(), destino.getPresencaHidricas().toString());
             }
 
             // Fechando o workbook após a leitura
