@@ -3,4 +3,4 @@
 /workspace.xml
 *.xls
 *.xlsx
-acre
+/*.xls;xlsx;csv
