@@ -9,7 +9,8 @@ public class ConexaoBanco {
     public ConexaoBanco() {
         BasicDataSource basicDataSource = new BasicDataSource();
         //basicDataSource.setUrl("jdbc:mysql://localhost:3306/zump?useSSL=false&serverTimezone=UTC");
-        basicDataSource.setUrl("jdbc:mysql://54.82.118.20:3306/zump?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+        //basicDataSource.setUrl("jdbc:mysql://54.82.118.20:3306/zump?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+        basicDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/zump?useSSL=false&serverTimezone=UTC");
         basicDataSource.setUsername("wetravel");
         basicDataSource.setPassword("Urubu100@");
 
