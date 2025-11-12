@@ -1,5 +1,6 @@
 package we.travel;
 
+import org.apache.poi.ss.usermodel.IgnoredErrorType;
 import we.travel.etl.Batch;
 import we.travel.etl.Destino;
 import we.travel.etl.LeitorExcel;
@@ -51,7 +52,10 @@ public class Main {
             try{
                 String nomeArquivo = arquivo;
                 Path caminho = Path.of(nomeArquivo);
-                InputStream arquivoLido = Files.newInputStream(caminho);
+                InputStream arquivoLido = Main.class.getResourceAsStream("/excel/" + nomeArquivo);
+                if (arquivoLido == null) {
+                    throw new RuntimeException("Arquivo não encontrado dentro do JAR: " + nomeArquivo);
+                }
                 LeitorExcel leitorExcel = new LeitorExcel();
                 List<Destino> destinoList = leitorExcel.extrarDestinos(nomeArquivo, arquivoLido);
                 Batch batch = new Batch(destinoList);
