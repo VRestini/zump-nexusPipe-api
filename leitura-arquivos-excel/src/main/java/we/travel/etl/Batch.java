@@ -10,7 +10,7 @@ public class Batch {
     }
 
     public void executar() {
-        int qtdLote = 100;
+        int qtdLote = 1000;
         LeitorExcel extracao = new LeitorExcel();
         Load carregamento = new Load();
         carregamento.carregamentoEmLote(dados, qtdLote);

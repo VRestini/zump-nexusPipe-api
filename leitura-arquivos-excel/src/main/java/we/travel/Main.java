@@ -61,7 +61,7 @@ public class Main {
                 Batch batch = new Batch(destinoList);
                 batch.executar();
                 arquivoLido.close();
-                //System.out.println("Destinos extraídos:");
+                System.out.println("Destinos extraídos:");
                 /*for (Destino destino : destinoList) {
                     System.out.println(destino);
                 }*/
@@ -71,8 +71,7 @@ public class Main {
             }
 
         }
-        log.dispararLog("PROCESSAMENTO_CONCLUIDO", "",
-                "Todos os arquivos foram processados");
+        log.dispararLog("PROCESSAMENTO_CONCLUIDO", "","Todos os arquivos foram processados");
 
     }
 }
