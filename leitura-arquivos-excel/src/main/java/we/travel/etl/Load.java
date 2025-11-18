@@ -16,13 +16,11 @@ public class Load {
 
     private String query = "INSERT INTO DESTINO (uf, municipio,possui_aeroporto,possui_guia,qtd_guia,modais_acesso,possui_conservacao,possui_termais,presenca_hidrica) VALUES (?,?,?,?,?,?,?,?,?)";
     public Load() {
-        try (InputStream input = getClass().getResourceAsStream("/application.properties")) {
-            Properties props = new Properties();
-            props.load(input);
-            urlBanco = props.getProperty("db.url");
-            usuario = props.getProperty("db.username");
-            senha = props.getProperty("db.password");
-        } catch (IOException e) {
+        try {
+            urlBanco = System.getenv("DB_URL");
+            usuario = System.getenv("DB_USERNAME");
+            senha = System.getenv("DB_PASSWORD");
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
     }

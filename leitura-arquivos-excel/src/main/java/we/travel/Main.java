@@ -5,6 +5,7 @@ import we.travel.etl.Batch;
 import we.travel.etl.Destino;
 import we.travel.etl.LeitorExcel;
 import we.travel.log.Log;
+import we.travel.s3.S3Provider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,12 +13,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         List<String> arquivos = new ArrayList<>();
         Log log = new Log();
+        String bucketName = System.getenv("S3_BUCKET_NAME");
+        S3Provider s3Provider = new S3Provider(bucketName);
+        log.dispararLog("PROCESSO_INICIADO", "", "Iniciando processamento dos arquivos na S3" + 0);
+        s3Provider.puxarArquivo();
         arquivos.add("acre.xlsx" );
         arquivos.add("alagoas.xlsx");
         arquivos.add("amapa.xlsx" );
@@ -45,16 +51,16 @@ public class Main {
         arquivos.add("sao_paulo.xlsx" );
         arquivos.add("sergipe.xlsx" );
         arquivos.add("tocantis.xlsx" );
-        log.dispararLog("PROCESSO_INICIADO", "", "QUANTIDADE DE ARQUIVOS: " + arquivos.size());
+        log.dispararLog("PROCESSO_FINALIZADO", "", "QUANTIDADE DE ARQUIVOS: " + arquivos.size());
 
         // Carregando o arquivo excel
         for (String arquivo : arquivos) {
             try{
                 String nomeArquivo = arquivo;
                 Path caminho = Path.of(nomeArquivo);
-                InputStream arquivoLido = Main.class.getResourceAsStream("/excel/" + nomeArquivo);
-                if (arquivoLido == null) {
-                    throw new RuntimeException("Arquivo não encontrado dentro do JAR: " + nomeArquivo);
+                InputStream arquivoLido = Files.newInputStream(caminho);
+                if (!Files.exists(caminho)) {
+                    throw new RuntimeException("Arquivo não encontrado dentro do fylesystem: " + nomeArquivo);
                 }
                 LeitorExcel leitorExcel = new LeitorExcel();
                 List<Destino> destinoList = leitorExcel.extrarDestinos(nomeArquivo, arquivoLido);
