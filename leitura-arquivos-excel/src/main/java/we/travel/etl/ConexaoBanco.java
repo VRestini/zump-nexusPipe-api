@@ -14,11 +14,11 @@ public class ConexaoBanco {
         Properties prop = new Properties();
         //basicDataSource.setUrl("jdbc:mysql://localhost:3306/nexus?useSSL=false&serverTimezone=UTC");
         //basicDataSource.setUrl("jdbc:mysql://54.82.118.20:3306/zump?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
-        basicDataSource.setUrl(System.getenv("S3_BUCKET_NAME"));
+        basicDataSource.setUrl(System.getenv("DB_URL"));
         //basicDataSource.setUsername("nexus");
         basicDataSource.setUsername(System.getenv("DB_USERNAME"));
         //basicDataSource.setPassword("senha_nexus");
-        basicDataSource.setPassword(prop.getProperty("DB_PASSWORD"));
+        basicDataSource.setPassword(System.getenv("DB_PASSWORD"));
 
         // Define o driver MySQL
         basicDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

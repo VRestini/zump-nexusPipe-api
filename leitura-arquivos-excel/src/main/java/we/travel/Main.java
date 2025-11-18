@@ -20,8 +20,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         List<String> arquivos = new ArrayList<>();
         Log log = new Log();
-        String bucketName = System.getenv("S3_BUCKET_NAME");
-        S3Provider s3Provider = new S3Provider(bucketName);
+        S3Provider s3Provider = new S3Provider("wetravel-saw");
         log.dispararLog("PROCESSO_INICIADO", "", "Iniciando processamento dos arquivos na S3" + 0);
         s3Provider.puxarArquivo();
         arquivos.add("acre.xlsx" );
