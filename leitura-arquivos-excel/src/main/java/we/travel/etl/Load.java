@@ -20,6 +20,9 @@ public class Load {
             urlBanco = System.getenv("DB_URL");
             usuario = System.getenv("DB_USERNAME");
             senha = System.getenv("DB_PASSWORD");
+            //urlBanco = ("jdbc:mysql://localhost:3306/nexus?useSSL=false&serverTimezone=UTC");
+            //usuario = ("nexus");
+            //senha = ("senha_nexus");
         } catch (RuntimeException e) {
             e.printStackTrace();
         }

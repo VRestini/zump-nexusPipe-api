@@ -72,7 +72,7 @@ public class LeitorExcel {
 
             // Fechando o workbook após a leitura
             workbook.close();
-            log.dispararLog("LEITURA_CONCLUIDA", nomeArquivo,   "destinos processados: serao mostrados depois");
+            log.dispararLog("LEITURA_CONCLUIDA", nomeArquivo,   "sem detalhes");
             //System.out.println("\nLeitura do arquivo finalizada\n");
 
             return destinosExtraidos;

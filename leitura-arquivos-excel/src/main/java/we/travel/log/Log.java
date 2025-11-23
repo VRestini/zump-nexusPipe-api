@@ -25,7 +25,7 @@ public class Log {
         dtHoraAtualFormatada = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String dataHoraFormatada = dtHoraAtual.format(dtHoraAtualFormatada);
         System.out.printf("[%s] - %s - %s - %s%n", dataHoraFormatada, acao, arquivo, detalhes);
-        insercaoBancoLog.inserirQuery(dataHoraFormatada, acao, arquivo, "detalhes");
+        insercaoBancoLog.inserirQuery(dataHoraFormatada, acao, arquivo, detalhes);
 
     }
 }

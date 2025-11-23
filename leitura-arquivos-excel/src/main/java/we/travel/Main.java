@@ -15,14 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static we.travel.slack.SlackSender.sendSimpleMessage;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
         List<String> arquivos = new ArrayList<>();
         Log log = new Log();
-        S3Provider s3Provider = new S3Provider("wetravel-saw");
+        //S3Provider s3Provider = new S3Provider("wetravel-saw");
         log.dispararLog("PROCESSO_INICIADO", "", "Iniciando processamento dos arquivos na S3" + 0);
-        s3Provider.puxarArquivo();
+        //s3Provider.puxarArquivo();
+        log.dispararLog("PROCESSO", "", "Arquivos da S3 foram puxados" + 0);
         arquivos.add("acre.xlsx" );
         arquivos.add("alagoas.xlsx");
         arquivos.add("amapa.xlsx" );
@@ -50,7 +53,7 @@ public class Main {
         arquivos.add("sao_paulo.xlsx" );
         arquivos.add("sergipe.xlsx" );
         arquivos.add("tocantis.xlsx" );
-        log.dispararLog("PROCESSO_FINALIZADO", "", "QUANTIDADE DE ARQUIVOS: " + arquivos.size());
+        log.dispararLog("PROCESSO", "", "Quantidade de arquivos baixados: " + arquivos.size());
 
         // Carregando o arquivo excel
         for (String arquivo : arquivos) {
@@ -76,7 +79,8 @@ public class Main {
             }
 
         }
-        log.dispararLog("PROCESSAMENTO_CONCLUIDO", "","Todos os arquivos foram processados");
+        sendSimpleMessage("teste! ");
+        log.dispararLog("PROCESSAMENTO_CONCLUIDO", "","Todos os arquivos foram processados e a base foi atualizada");
 
     }
 }

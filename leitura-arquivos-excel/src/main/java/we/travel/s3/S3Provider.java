@@ -37,7 +37,7 @@ public class S3Provider {
     }
     public void puxarArquivo() throws IOException {
         ListObjectsRequest listRequest = ListObjectsRequest.builder()
-                .bucket(bucketName) // Você precisa informar o bucket aqui
+                .bucket(bucketName)
                 .build();
         List<S3Object> objects = s3Client.listObjects(listRequest).contents();
         for (S3Object object : objects) {
