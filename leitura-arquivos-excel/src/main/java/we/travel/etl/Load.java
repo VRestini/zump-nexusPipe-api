@@ -1,6 +1,7 @@
 package we.travel.etl;
 
 import we.travel.base.Destino;
+import we.travel.base.HistoricoVenda;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +14,8 @@ public class Load {
     private String usuario;
     private String senha;
 
-    private String query = "INSERT INTO DESTINO (uf, municipio,possui_aeroporto,possui_guia,qtd_guia,modais_acesso,possui_conservacao,possui_termais,presenca_hidrica) VALUES (?,?,?,?,?,?,?,?,?)";
+    private String queryDestino = "INSERT INTO DESTINO (uf, municipio,possui_aeroporto,possui_guia,qtd_guia,modais_acesso,possui_conservacao,possui_termais,presenca_hidrica) VALUES (?,?,?,?,?,?,?,?,?)";
+    private String queryHistorico = "INSERT INTO historico_venda (uf, municipio,turistas, cluster) VALUES (?,?,?,?)";
     public Load() {
         try {
             urlBanco = System.getenv("DB_URL");
@@ -26,9 +28,9 @@ public class Load {
             e.printStackTrace();
         }
     }
-    public String carregamentoEmLote(List<Destino> dados, int tamanhoLote) {
+    public String carregamentoEmLoteDestino(List<Destino> dados, int tamanhoLote) {
         try (Connection conexao = DriverManager.getConnection(urlBanco, usuario, senha);
-             PreparedStatement insercao = conexao.prepareStatement(query)) {
+             PreparedStatement insercao = conexao.prepareStatement(queryDestino)) {
             conexao.setAutoCommit(false);
             for (int i = 0; i < dados.size(); i++) {
                 insercao.setString(1, dados.get(i).getUf());
@@ -48,7 +50,28 @@ public class Load {
             insercao.executeBatch();
             conexao.commit();
             return "Lote inserido com sucesso!";
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Erro no carregamento em lote: " + e.getMessage();
+        }
+    }
+    public String carregamentoEmLoteHistorico(List<HistoricoVenda> dados, int tamanhoLote) {
+        try (Connection conexao = DriverManager.getConnection(urlBanco, usuario, senha);
+             PreparedStatement insercao = conexao.prepareStatement(queryHistorico)) {
+            conexao.setAutoCommit(false);
+            for (int i = 0; i < dados.size(); i++) {
+                insercao.setString(1, dados.get(i).getUf());
+                insercao.setString(2, dados.get(i).getMunicipio());
+                insercao.setInt(3, dados.get(i).getQtdTuristas());
+                insercao.setString(4, dados.get(i).getCluster());
+                insercao.addBatch();
+                if ((i + 1) % tamanhoLote == 0) {
+                    insercao.executeBatch();
+                }
+            }
+            insercao.executeBatch();
+            conexao.commit();
+            return "Lote inserido com sucesso!";
         } catch (SQLException e) {
             e.printStackTrace();
             return "Erro no carregamento em lote: " + e.getMessage();

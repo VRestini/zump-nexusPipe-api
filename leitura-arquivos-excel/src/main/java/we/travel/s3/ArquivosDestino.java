@@ -1,10 +1,19 @@
 package we.travel.s3;
 
+import we.travel.base.Destino;
+import we.travel.etl.Batch;
+import we.travel.etl.LeitorDestino;
+import we.travel.log.Log;
+
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArquivosDestino {
     List<String> arquivos = new ArrayList<>();
+    Log log = new Log();
     public ArquivosDestino() {
         arquivos.add("acre.xlsx" );
         arquivos.add("alagoas.xlsx");
@@ -34,7 +43,27 @@ public class ArquivosDestino {
         arquivos.add("sergipe.xlsx" );
         arquivos.add("tocantis.xlsx" );
     }
-
+    public void extrair(){
+        for (String arquivo : arquivos) {
+            try{
+                String nomeArquivo = arquivo;
+                Path caminho = Path.of(nomeArquivo);
+                InputStream arquivoLido = Files.newInputStream(caminho);
+                if (!Files.exists(caminho)) {
+                    throw new RuntimeException("Arquivo não encontrado dentro do fylesystem: " + nomeArquivo);
+                }
+                LeitorDestino leitorDestino = new LeitorDestino();
+                List<Destino> destinoList = leitorDestino.extrarDestinos(nomeArquivo, arquivoLido);
+                Batch batch = new Batch(destinoList);
+                batch.executarDestino();
+                arquivoLido.close();
+                System.out.println("Destinos extraídos:");
+            } catch (Exception e) {
+                log.dispararLog("ERRO_ARQUIVO", arquivo, "Falha no processamento: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+        }
+    }
     public List<String> getArquivos() {
         return arquivos;
     }

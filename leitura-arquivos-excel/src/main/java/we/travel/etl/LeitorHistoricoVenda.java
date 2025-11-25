@@ -19,7 +19,7 @@ public class LeitorHistoricoVenda {
     public LeitorHistoricoVenda() {
         this.log = new Log();
     }
-    public List<HistoricoVenda> extrairHistoricoVenda(String nomeArquivo, InputStream arquivo){
+    public List<HistoricoVenda> extrairHistoricoVenda(String nomeArquivo, InputStream arquivo) {
         try {
             Workbook workbook;
             if (nomeArquivo.endsWith(".xlsx")) {
@@ -40,11 +40,13 @@ public class LeitorHistoricoVenda {
                 historicoVendasExtraidos.add(historicoVenda);
             }
             workbook.close();
-            log.dispararLog("LEITURA_CONCLUIDA", nomeArquivo,   "sem detalhes");
+            log.dispararLog("LEITURA_CONCLUIDA", nomeArquivo, "sem detalhes");
+            return historicoVendasExtraidos;
         } catch (Exception e) {
             log.dispararLog("ERRO_LEITURA", nomeArquivo, "Erro: " + e.getMessage());
             throw new RuntimeException(e);
         }
+
 
     }
 
