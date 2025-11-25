@@ -41,10 +41,10 @@ public class LeitorDestino {
             }
 
             Sheet sheet = workbook.getSheetAt(0);
-            ConexaoBanco conexaoBanco = new ConexaoBanco();
+            //ConexaoBanco conexaoBanco = new ConexaoBanco();
             List<Destino> destinosExtraidos = new ArrayList<>();
-            JdbcTemplate template = conexaoBanco.getJdbcTemplate();
-            InsercaoBanco insercaoBanco = new InsercaoBanco(template);
+            //JdbcTemplate template = conexaoBanco.getJdbcTemplate();
+            //InsercaoBanco insercaoBanco = new InsercaoBanco(template);
             // Iterando sobre as linhas da planilha
             for (Row row : sheet) {
 
