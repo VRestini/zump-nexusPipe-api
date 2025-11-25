@@ -1,8 +1,5 @@
 package we.travel.slack;
 
-import com.slack.api.Slack;
-import com.slack.api.methods.SlackApiException;
-import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import okhttp3.*;
 
 import java.io.IOException;

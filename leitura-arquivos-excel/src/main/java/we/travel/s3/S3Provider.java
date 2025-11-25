@@ -36,6 +36,13 @@ public class S3Provider {
                 .build();
     }
     public void puxarArquivo() throws IOException {
+        File diretorio = new File(".");
+        for (File arquivo : diretorio.listFiles()) {
+            if (arquivo.isFile() && arquivo.getName().endsWith(".xlsx")) {
+                System.out.println("Apagando arquivo: " + arquivo.getName());
+                arquivo.delete();
+            }
+        }
         ListObjectsRequest listRequest = ListObjectsRequest.builder()
                 .bucket(bucketName)
                 .build();

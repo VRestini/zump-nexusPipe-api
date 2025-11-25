@@ -1,4 +1,4 @@
-package we.travel.etl;
+package we.travel.database;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;

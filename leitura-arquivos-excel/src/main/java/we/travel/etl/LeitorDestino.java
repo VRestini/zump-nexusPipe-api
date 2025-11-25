@@ -16,12 +16,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.jdbc.core.JdbcTemplate;
 import we.travel.ModaisAcesso;
 import we.travel.PresencaHidrica;
+import we.travel.base.Destino;
+import we.travel.database.ConexaoBanco;
+import we.travel.database.InsercaoBanco;
 import we.travel.log.Log;
 
-public class LeitorExcel {
+public class LeitorDestino {
     private Log log;
 
-    public LeitorExcel() {
+    public LeitorDestino() {
         this.log = new Log();
     }
 
@@ -67,7 +70,7 @@ public class LeitorExcel {
                 destino.setPossuiLocadora(possuiSimNao(row,42));
 
                 destinosExtraidos.add(destino);
-                //insercaoBanco.inserirQuery(destino.getUf(),destino.getMunicipio(),destino.getPossuiAeroporto(),destino.getPossuiGuia(),destino.getQtdGuia(),destino.getModaisAcessos().toString(),destino.getUnidadesConservacao(), destino.getAguasTermais(), destino.getPresencaHidricas().toString());
+                //insercaoBanco.inserirDestino(destino.getUf(),destino.getMunicipio(),destino.getPossuiAeroporto(),destino.getPossuiGuia(),destino.getQtdGuia(),destino.getModaisAcessos().toString(),destino.getUnidadesConservacao(), destino.getAguasTermais(), destino.getPresencaHidricas().toString());
             }
 
             // Fechando o workbook após a leitura

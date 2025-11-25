@@ -1,5 +1,7 @@
 package we.travel.etl;
 
+import we.travel.base.Destino;
+
 import java.util.List;
 
 public class Batch {
@@ -11,7 +13,7 @@ public class Batch {
 
     public void executar() {
         int qtdLote = 1000;
-        LeitorExcel extracao = new LeitorExcel();
+        LeitorDestino extracao = new LeitorDestino();
         Load carregamento = new Load();
         carregamento.carregamentoEmLote(dados, qtdLote);
     }

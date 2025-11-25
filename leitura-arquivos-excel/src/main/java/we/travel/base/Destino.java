@@ -1,4 +1,4 @@
-package we.travel.etl;
+package we.travel.base;
 
 import lombok.Getter;
 import lombok.Setter;
